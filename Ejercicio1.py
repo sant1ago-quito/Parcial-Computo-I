@@ -15,15 +15,16 @@ boton = input("Bienvenido, por favor ingrese P si es proveedor, o C si es compra
 class Proveedor():
     def __init__(self):
         self.arreglo= []
-    
+    #Aca cree un arreglo para añadir ahi los productoos
     def ingresarproduc(self):
             while True:
                 self.ingresarprod = input("Por favor ingrese el producto a agregar: ")
                 self.ingresarprecio = float(input("Por favor ingrese el precio sugerido: "))
                 self.ingresarcant = int(input("Por favor ingrese la cantidad de producto a ingresar: "))
-                
+                #aca use un diccionario para una mejor distribucion de datos
                 self.inventarionuevo =  {"Producto": self.ingresarprod, "Precio Sugerido": self.ingresarprecio, "Cantidad": self.ingresarcant}
                 self.arreglo.append(self.inventarionuevo)
+                #usamos un append para añadir los productos al arreglo
                 self.continuar = input("Desea agregar otro producto? (s/n): ")
                 if self.continuar.lower() == "n":
                      break
@@ -64,3 +65,12 @@ if boton.upper() == "P":
 elif boton.upper() == "C":
      comprador = Comprador()
      comprador.compra()
+
+"""
+Este código proporciona una solución para una tienda local que maneja tanto a proveedores 
+como a compradores. Los proveedores pueden ingresar productos con precios sugeridos y cantidades 
+disponibles, que se almacenan en un inventario. Los compradores pueden seleccionar productos, 
+realizar pagos y recibir vuelto, con la opción de ver su historial de compras. El código asegura 
+que los compradores solo compren productos disponibles y maneja errores de entrada para una experiencia 
+de usuario más robusta.
+"""
