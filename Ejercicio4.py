@@ -28,12 +28,12 @@ class EmpleadoPlazaFija(Empleado):
         super().__init__(nombre, años_trabajados)
         self.salario_base = float(input(f"Ingrese el salario base de {nombre}: "))
         self.comisiones = float(input(f"Ingrese las comisiones de {nombre}: "))
-
+#Aca creamos la clase para los empleados con plaza fija  y su metodo para calcular su salario base mas sus comisiones, agregando también su bono si es que tiene
     def calcular_pago(self):
         pago = self.salario_base + self.comisiones
         bono = self.calcular_bono()
         return pago + bono
-
+#calculamos el pago del empleado con plaza fija
 class EmpleadoPorHoras(Empleado):
     def __init__(self):
         nombre = input("Ingrese el nombre del empleado por horas: ")
@@ -41,12 +41,12 @@ class EmpleadoPorHoras(Empleado):
         super().__init__(nombre, años_trabajados)
         self.tarifa_hora = float(input(f"Ingrese la tarifa por hora de {nombre}: "))
         self.horas_trabajadas = int(input(f"Ingrese las horas trabajadas por {nombre}: "))
-
+#Aca creamos la clase para los empleados por horas y su metodo para calcular su salario basado en sus  horas, agregando también su bono si es que tiene
     def calcular_pago(self):
         pago = self.tarifa_hora * self.horas_trabajadas
         bono = self.calcular_bono()
         return pago + bono
-
+#calculamos el pago del empleado por horas
 tipo_empleado = input("El empleado es de plaza fija? (s/n): ").lower()
 
 if tipo_empleado == "s":
@@ -58,3 +58,12 @@ else:
     empleado = None
 
 print(f"\nPago para {empleado.nombre}: ${empleado.calcular_pago()}")
+
+"""
+Esta solución utiliza una estructura de clases para calcular el pago de empleados con plaza fija y 
+por horas. La clase base "Empleado" gestiona los datos comunes y el cálculo del bono por antigüedad, 
+mientras que "EmpleadoPlazaFija" y "EmpleadoPorHoras" realizan cálculos específicos para cada 
+tipo de empleado. Los datos se ingresan mediante "input()", permitiendo al usuario proporcionar la
+información necesaria para los cálculos. Esta estructura facilita la gestión de diferentes 
+tipos de empleados y sus pagos de manera organizada y extendible.
+"""
