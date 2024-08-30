@@ -27,34 +27,57 @@ class Asistencia():
         print(f"Comentarios: {self.razon if self.razon else 'N/A'}") 
         print("*******************************")
 
+#Diccionario para el salon
+salones = {
+    "1A": ["Juan Pérez", "Ana Gómez"],
+    "2B": ["Luis Martínez", "María López", "Carlos Sánchez"]
+}
 #funcion para tomar la asistencia
 def tomar_asistencia():
     fecha = input("Ingresa la fecha: ")
-    salon = input("¿Cuál es su salón? ")
-    Alumnos = int(input("¿Cuántos alumnos son en su salón? "))
-    alumnos = []
+    salon = input("¿Cuál es su salón? ").strip().upper()
 
-    for i in range(Alumnos):
-        print(f"\nIngresar alumno y asistencia {i + 1}:")
-        nombre = input("Nombre del alumno: ")
+    # Verificar que el salón existe en la lista
+    if salon not in salones:
+        print("Salón no válido. Intente de nuevo.")
+        return tomar_asistencia()  # Volver a pedir si el salón no es válido
+
+    alumnos = salones[salon]  # Obtener la lista de alumnos del salón
+    registros = []
+
+    # Recorrer la lista de alumnos y tomar asistencia
+    for nombre in alumnos:
         estado = input(f"¿Cuál es el estado de {nombre}? (P: Presente, A: Ausente, M: Permiso): ").strip().upper()
         
         razon = ""
         if estado == 'M':  # Si el estado es "Permiso", se pide la razón
             razon = input(f"Razón del permiso para {nombre}: ").strip()
-        elif estado == 'P':  # Si el estado es "Presente" queda "vacio"
-            razon = "N/A"
-        elif estado == 'A':  # Si el estado es "Ausente" queda "vacio"
+        elif estado == 'P' or estado == 'A':  # Si el estado es "Presente" o "Ausente"
             razon = "N/A"
         else:
             print("Estado no válido, por favor intente de nuevo.")
-            return tomar_asistencia()  # Volver a pedir la asistencia si la entrada no es válida
+            return tomar_asistencia()  # Volver a pedir si la entrada no es válida
 
-        alumno = Asistencia(fecha, salon, nombre, estado, razon)
-        alumnos.append(alumno)
-    
-    for i, alumno in enumerate(alumnos, start=1):
+        registro = Asistencia(fecha, salon, nombre, estado, razon)
+        registros.append(registro)
+
+    # Mostrar el reporte de asistencia
+    for i, registro in enumerate(registros, start=1):
         print(f"\nAsistencia {i}:")
-        alumno.mostrarDatos()
+        registro.mostrarDatos()
 
+# Ejemplo de uso
 tomar_asistencia()
+"""
+El usuario ingresa la fecha y selecciona el salón de clase. Si el salón no existe, se solicita nuevamente.
+Se recorre la lista de estudiantes del salón seleccionado, y se solicita el estado de asistencia para cada uno.
+Según el estado de asistencia (Presente, Ausente, Permiso), se maneja la razón de la falta:
+Si es "Permiso", se pide que se ingrese la razón.
+Si es "Presente" o "Ausente", se asigna "N/A" como razón.
+Los registros de asistencia se almacenan en una lista registros.
+Al final, se muestra un reporte para cada estudiante utilizando el método mostrarDatos de la clase Asistencia.
+Este código permite tomar asistencia de manera eficiente utilizando una lista de alumnos predefinida para cada
+salón. La simplicidad del flujo de trabajo mejora la experiencia del usuario al evitar la necesidad de 
+ingresar manualmente los nombres de los estudiantes, permitiendo un proceso más rápido y menos propenso 
+a errores.
+"""
